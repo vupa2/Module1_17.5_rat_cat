@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>[*Bài tập] Phát triển ứng dụng mô phỏng lại quá trình mèo bắt chuột và ăn chuột.</title>
+</head>
+<body>
+  <div id="game"></div>
+  
+  <script>
+    // Class
+    class Rat {
+      constructor(name, weight, speed) {
+        this.name = name;
+        this.weight = weight;
+        this.speed = speed;
+        this.alive = true;
+      }
+      
+      say() {
+        console.log('cheat, cheat');
+      }
+    }
+    
+    class Cat {
+      constructor(name, weight, maxSpeed) {
+        this.name = name;
+        this.weight = weight;
+        this.maxSpeed = maxSpeed;
+        this.haveRat = false;
+      }
+      
+      say() {
+        console.log('meo, meo');
+      }
+      
+      catchRat(Rat) {
+        if (this.maxSpeed > Rat.speed) {
+          this.haveRat = true;
+          console.log(`${this.name} sucess to catch ${Rat.name}`);
+        } else {
+          console.log(`${this.name} fail to catch ${Rat.name}`);
+        }
+      }
+      
+      eatRat(Rat) {
+        if (Rat.alive && this.haveRat) {
+          Rat.alive = false;
+          this.haveRat = false;
+          this.weight += Rat.weight;
+          console.log(`${this.name} eats ${Rat.name}, ${this.name} is ${this.weight}kg`)
+        } else {
+          console.log('Rat is dead or cat catchs no rat, cannot eat')
+        }
+      }
+    }
+    
+    // Drama
+    const rat1 = new Rat('Micky', 10, 10);
+    const rat2 = new Rat('Jerry', 10, 20);
+    const cat = new Cat('Tom', 20, 15);
+    
+    cat.say();
+    
+    cat.catchRat(rat1);
+    rat1.say();
+    cat.eatRat(rat1);
+    
+    cat.catchRat(rat2);
+    rat2.say();
+    cat.eatRat(rat1);
+
+  </script>
+</body>
+</html>
